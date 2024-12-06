@@ -35,7 +35,10 @@ public class SRTF{
             System.out.print("Initial Quantum: ");
             int quantum = sc.nextInt();
 
-            processList.add(new Process(name, arrivalTime, burstTime, color, quantum));
+            System.out.print("Priority: ");
+            int priority = sc.nextInt();
+
+            processList.add(new Process(name, color, arrivalTime, burstTime, priority, quantum));
         }
 
         // Simulate SRTF with context switching and dynamic quantum updates
@@ -60,28 +63,31 @@ public class SRTF{
                     // Context switch
                     currentTime += contextSwitchingTime;
                     // Update quantum for preempted process
-                    updateQuantumForPreemption(currentProcess, currentProcess.quantum);
+                    updateQuantumForPreemption(currentProcess, currentProcess.getQuantum());
                 }
 
                 if (currentProcess == null || !currentProcess.equals(nextProcess)) {
-                    executionOrder.add(nextProcess.name);  // Add process to execution order only when it starts or resumes
+                    executionOrder.add(nextProcess.getName());  // Add process to execution order only when it starts or resumes
                 }
 
                 currentProcess = nextProcess;
-                int executionTime = Math.min(currentProcess.quantum, currentProcess.remainingTime);
-                currentProcess.remainingTime -= executionTime;
+                int executionTime = Math.min(currentProcess.getQuantum(), currentProcess.getRemainingTime());
+                currentProcess.setRemainingTime(currentProcess.getRemainingTime() - executionTime);
+                //currentProcess.remainingTime -= executionTime;
                 currentTime += executionTime;
 
                 // If process still has remaining work after completing its quantum
-                if (currentProcess.remainingTime > 0) {
+                if (currentProcess.getRemainingTime() > 0) {
                     // Update quantum by +2 if process has work left after completing its quantum
-                    currentProcess.quantum += 2;
+                    currentProcess.adjustQuantum(2);
                 } else {
                     // Process completes
-                    currentProcess.turnaroundTime = currentTime - currentProcess.arrivalTime;
-                    currentProcess.waitingTime = currentProcess.turnaroundTime - currentProcess.burstTime;
-                    totalWaitTime += currentProcess.waitingTime;
-                    totalTurnaroundTime += currentProcess.turnaroundTime;
+                    currentProcess.setTurnaroundTime(currentTime - currentProcess.getArrivalTime());
+                    //currentProcess.turnaroundTime = currentTime - currentProcess.getArrivalTime();
+                    currentProcess.setWaitingTime(currentProcess.getTurnaroundTime() - currentProcess.getBurstTime());
+                    //currentProcess.waitingTime = currentProcess.turnaroundTime - currentProcess.getBurstTime();
+                    totalWaitTime += currentProcess.getWaitingTime();
+                    totalTurnaroundTime += currentProcess.getTurnaroundTime();
                     completed++;
                 }
             } else {
@@ -96,8 +102,8 @@ public class SRTF{
     static Process getNextProcess(int currentTime) {
         Process selected = null;
         for (Process p : processList) {
-            if (p.arrivalTime <= currentTime && p.remainingTime > 0) {
-                if (selected == null || p.remainingTime < selected.remainingTime) {
+            if (p.getArrivalTime() <= currentTime && p.getRemainingTime() > 0) {
+                if (selected == null || p.getRemainingTime() < selected.getRemainingTime()) {
                     selected = p;
                 }
             }
@@ -106,8 +112,9 @@ public class SRTF{
     }
 
     static void updateQuantumForPreemption(Process process, int unusedQuantum) {
-        if (process.remainingTime > 0) {
-            process.quantum += unusedQuantum;  // Add unused quantum back
+        if (process.getRemainingTime() > 0) {
+            process.adjustQuantum(unusedQuantum);
+            //process.getQuantum() += unusedQuantum;  // Add unused quantum back
         }
     }
 
@@ -120,8 +127,8 @@ public class SRTF{
 
         System.out.println("\nProcess Details:");
         for (Process p : processList) {
-            System.out.println("Process " + p.name + " - Waiting Time: " + p.waitingTime
-                    + ", Turnaround Time: " + p.turnaroundTime);
+            System.out.println("Process " + p.getName() + " - Waiting Time: " + p.getWaitingTime()
+                    + ", Turnaround Time: " + p.getTurnaroundTime());
         }
 
         double avgWaitTime = (double) totalWaitTime / processList.size();

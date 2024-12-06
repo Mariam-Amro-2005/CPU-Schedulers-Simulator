@@ -8,6 +8,9 @@ public class Process {
     private int remainingTime;   // Remaining burst time during execution
     private double fcaiFactor;   // FCAI factor for custom scheduling
     private int quantum;         // Time quantum allocated for the process
+    private int completionTime;  // Time the process completes execution
+    private int waitingTime;     // Waiting time for the process
+    private int turnaroundTime;  // Turnaround time for the process
 
     // Constructor
     public Process(String name, String color, int arrivalTime, int burstTime, int priority, int quantum) {
@@ -19,6 +22,9 @@ public class Process {
         this.remainingTime = burstTime; // Initially, remaining time equals burst time
         this.fcaiFactor = 0.0;          // Initial FCAI factor is set to 0
         this.quantum = quantum;        // Quantum is provided as a parameter
+        this.completionTime = 0;
+        this.waitingTime = 0;
+        this.turnaroundTime = 0;
     }
 
     // Getters and Setters
@@ -84,6 +90,30 @@ public class Process {
 
     public void setQuantum(int quantum) {
         this.quantum = quantum;
+    }
+
+    public int getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(int completionTime) {
+        this.completionTime = completionTime;
+    }
+
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
+    public void setWaitingTime(int waitingTime) {
+        this.waitingTime = waitingTime;
+    }
+
+    public int getTurnaroundTime() {
+        return turnaroundTime;
+    }
+
+    public void setTurnaroundTime(int turnaroundTime) {
+        this.turnaroundTime = turnaroundTime;
     }
 
     // Methods
