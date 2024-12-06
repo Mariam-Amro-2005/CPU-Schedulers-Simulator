@@ -22,8 +22,8 @@ The simulator provides insights into scheduling performance by calculating metri
 
 ## Team Members
 - **Mariam Amro**
-- **Salma**
-- **Yara Hazem**
+- **Salma Abdelsamei Ahmed**
+- **Yara Hazem Hassan**
 - **Alaa Saeed**
 
 ---
