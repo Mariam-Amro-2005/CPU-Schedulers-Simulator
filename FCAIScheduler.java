@@ -113,16 +113,14 @@ public class FCAIScheduler {
     public static void main(String[] args) {
         // Example processes
         List<Process> processList = Arrays.asList(
-                /*new Process("P1", "Red", 0, 10, 1),
-                new Process("P2", "Blue", 2, 8, 2),
-                new Process("P3", "Green", 4, 6, 3),*/
-                new Process("P1", "Red", 0, 17, 4),
-                new Process("P2", "Blue", 3, 6, 9),
-                new Process("P3", "Green", 4, 10, 3),
-                new Process("P4", "Green", 29, 4, 8)
+                new Process("P1", "Red", 0, 17, 4, 4),
+                new Process("P2", "Blue", 3, 6, 9, 3),
+                new Process("P3", "Green", 4, 10, 3, 5),
+                new Process("P4", "Green", 29, 4, 8, 2)
         );
 
         FCAIScheduler scheduler = new FCAIScheduler(processList, 2);
         scheduler.schedule();
     }
 }
+

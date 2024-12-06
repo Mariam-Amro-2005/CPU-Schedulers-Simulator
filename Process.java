@@ -10,7 +10,7 @@ public class Process {
     private int quantum;         // Time quantum allocated for the process
 
     // Constructor
-    public Process(String name, String color, int arrivalTime, int burstTime, int priority) {
+    public Process(String name, String color, int arrivalTime, int burstTime, int priority, int quantum) {
         this.name = name;
         this.color = color;
         this.arrivalTime = arrivalTime;
@@ -18,7 +18,7 @@ public class Process {
         this.priority = priority;
         this.remainingTime = burstTime; // Initially, remaining time equals burst time
         this.fcaiFactor = 0.0;          // Initial FCAI factor is set to 0
-        this.quantum = 0;              // Initial quantum is set to 0
+        this.quantum = quantum;        // Quantum is provided as a parameter
     }
 
     // Getters and Setters
@@ -109,17 +109,13 @@ public class Process {
         this.quantum += increment;
     }
 
-    @Override
-    public String toString() {
-        return String.format("Process{name='%s', arrivalTime=%d, burstTime=%d, priority=%d, remainingTime=%d, fcaiFactor=%.2f, quantum=%d}",
-                name, arrivalTime, burstTime, priority, remainingTime, fcaiFactor, quantum);
-    }
-
     public boolean isCompleted() {
         return remainingTime <= 0;
     }
 
-    public static void main(String[] args) {
-        System.out.println("Hello");
+    @Override
+    public String toString() {
+        return String.format("Process{name='%s', arrivalTime=%d, burstTime=%d, priority=%d, remainingTime=%d, fcaiFactor=%.2f, quantum=%d}",
+                name, arrivalTime, burstTime, priority, remainingTime, fcaiFactor, quantum);
     }
 }
