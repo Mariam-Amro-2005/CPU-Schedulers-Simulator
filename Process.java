@@ -115,6 +115,10 @@ public class Process {
                 name, arrivalTime, burstTime, priority, remainingTime, fcaiFactor, quantum);
     }
 
+    public boolean isCompleted() {
+        return remainingTime <= 0;
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello");
     }
