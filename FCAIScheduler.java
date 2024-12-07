@@ -46,6 +46,16 @@ public class FCAIScheduler {
             // Select the process with the lowest FCAI factor
             Process selectedProcess = readyQueue.getFirst();
 
+            // Check if the process has remaining time
+            if (selectedProcess.getRemainingTime() <= 0) {
+                readyQueue.remove(selectedProcess);
+                selectedProcess.setCompletionTime(currentTime); // Set completion time
+                selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
+                selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
+                System.out.println("Process " + selectedProcess.getName() + " has completed and is removed from the queue.");
+                continue;
+            }
+
             // Add current quantum to quantum history
             quantumHistory.get(selectedProcess.getName()).add(selectedProcess.getQuantum());
 
@@ -73,11 +83,26 @@ public class FCAIScheduler {
                 readyQueue.sort(Comparator.comparingDouble(Process::getFcaiFactor));
 
                 Process potentialPreemptingProcess = readyQueue.getFirst();
-                if (potentialPreemptingProcess != selectedProcess) {
+                System.out.println("New process " + potentialPreemptingProcess.getName());
+
+                if (!Objects.equals(potentialPreemptingProcess.getName(), selectedProcess.getName())) {
                     // Preempt the current process
+                    int arrivalDiff = potentialPreemptingProcess.getArrivalTime() - currentTime;
+
+                    if (arrivalDiff > 0) {
+                        // Let the current process run for the time difference
+                        int additionalExecutionTime = Math.min(arrivalDiff, selectedProcess.getRemainingTime());
+                        currentTime += additionalExecutionTime;
+                        selectedProcess.setRemainingTime(selectedProcess.getRemainingTime() - additionalExecutionTime);
+
+                        System.out.println("Continuing " + selectedProcess.getName() + " for " + additionalExecutionTime + " units until " + potentialPreemptingProcess.getName() + " arrives.");
+                    }
+
                     System.out.println("Switching ...");
-                    int unusedQuantum = selectedProcess.getQuantum() - executionTime;
-                    selectedProcess.adjustQuantum(unusedQuantum);
+                    if (selectedProcess.getRemainingTime() > 0) {
+                        int unusedQuantum = selectedProcess.getQuantum() - executionTime;
+                        selectedProcess.adjustQuantum(unusedQuantum);
+                    }
 
                     // Context switch and let the new process run immediately
                     executionOrder.add(selectedProcess.getName()); // Log preempted process

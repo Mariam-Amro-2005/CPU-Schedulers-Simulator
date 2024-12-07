@@ -126,6 +126,9 @@ public class Process {
      * @param v2 Derived from max burst time / 10
      */
     public void updateFcaiFactor(double v1, double v2) {
+        if(v1 == 0){
+            v1 = 1;
+        }
         this.fcaiFactor = (10 - this.priority) + (this.arrivalTime / v1) + (this.remainingTime / v2);
     }
 
