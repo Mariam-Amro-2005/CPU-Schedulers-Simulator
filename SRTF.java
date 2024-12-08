@@ -92,7 +92,6 @@ public class SRTF {
             System.out.print(pName + " ");
         }
         System.out.println();
-
         System.out.println("\nProcess Details:");
         for (Process p : processList) {
             System.out.println("Process " + p.getName() + " - Waiting Time: " + p.getWaitingTime()
