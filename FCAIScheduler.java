@@ -46,27 +46,13 @@ public class FCAIScheduler {
             // Select the process with the lowest FCAI factor
             Process selectedProcess = readyQueue.getFirst();
 
-            // Check if the process has remaining time
-            /*if (selectedProcess.getRemainingTime() <= 0) {
-                readyQueue.remove(selectedProcess);
-                selectedProcess.setCompletionTime(currentTime); // Set completion time
-                selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
-                selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
-                System.out.println("Process " + selectedProcess.getName() + " has completed and is removed from the queue.");
-                continue;
-            }*/
-
             // Add current quantum to quantum history
             quantumHistory.get(selectedProcess.getName()).add(selectedProcess.getQuantum());
 
             // Execute process for 40% of its quantum
             int timeSlice = (int) Math.ceil(selectedProcess.getQuantum() * 0.4);
             int executionTime = Math.min(timeSlice, selectedProcess.getRemainingTime());
-
-            System.out.println(selectedProcess.getName() + ": ( "+ currentTime + " - "+ (currentTime+executionTime) + " )");
-
             currentTime += executionTime;
-            System.out.println("Time: after 40% " + currentTime);
 
             // Update remaining burst time
             selectedProcess.setRemainingTime(selectedProcess.getRemainingTime() - executionTime);
@@ -83,9 +69,8 @@ public class FCAIScheduler {
                 readyQueue.sort(Comparator.comparingDouble(Process::getFcaiFactor));
 
                 Process potentialPreemptingProcess = readyQueue.getFirst();
-                System.out.println("New process " + potentialPreemptingProcess.getName());
 
-                if (!Objects.equals(potentialPreemptingProcess.getName(), selectedProcess.getName())) {
+                if (!potentialPreemptingProcess.equals(selectedProcess)) {
                     // Preempt the current process
                     int arrivalDiff = currentTime - potentialPreemptingProcess.getArrivalTime();
 
@@ -94,11 +79,9 @@ public class FCAIScheduler {
                         int additionalExecutionTime = Math.min(arrivalDiff, selectedProcess.getRemainingTime());
                         currentTime += additionalExecutionTime;
                         selectedProcess.setRemainingTime(selectedProcess.getRemainingTime() - additionalExecutionTime);
-
-                        System.out.println("Continuing " + selectedProcess.getName() + " for " + additionalExecutionTime + " units until " + potentialPreemptingProcess.getName() + " arrives.");
                     }
 
-                    System.out.println("Switching ...");
+                    // Update variables after execution
                     if (selectedProcess.getRemainingTime() > 0) {
                         int unusedQuantum = selectedProcess.getQuantum() - executionTime;
                         if (unusedQuantum > 0){
@@ -121,26 +104,22 @@ public class FCAIScheduler {
                 int remainingQuantum = Math.min((selectedProcess.getQuantum() - executionTime), selectedProcess.getRemainingTime());
                 selectedProcess.setRemainingTime(selectedProcess.getRemainingTime() - remainingQuantum);
                 currentTime += remainingQuantum;
-                System.out.println("Time: after rest of quantum " + currentTime);
                 selectedProcess.adjustQuantum(2); // Add 2 to quantum if not finished
-            } /*else {
-                readyQueue.remove(selectedProcess); // Remove completed process
-                selectedProcess.setCompletionTime(currentTime); // Set completion time
-                selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
-                selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
-            }*/
+            }
 
             if (selectedProcess.getRemainingTime() <= 0) {
-                readyQueue.remove(selectedProcess);
+                readyQueue.remove(selectedProcess);  // Remove completed process
                 selectedProcess.setCompletionTime(currentTime); // Set completion time
                 selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
                 selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
-                System.out.println("Process " + selectedProcess.getName() + " has completed and is removed from the queue.");
+                // System.out.println("Process " + selectedProcess.getName() + " has completed and is removed from the queue.");
             }
 
             executionOrder.add(selectedProcess.getName());
             currentTime += contextSwitchingTime; // Add context switching time
         }
+
+        System.out.println("\nExecution Order: " + String.join(" -> ", executionOrder + "\n"));
 
         // Calculate and print results
         for (Process p : processes) {
@@ -154,8 +133,7 @@ public class FCAIScheduler {
         double averageWaitingTime = totalWaitingTime / processes.size();
         double averageTurnaroundTime = totalTurnaroundTime / processes.size();
 
-        System.out.println("\nExecution Order: " + String.join(" -> ", executionOrder));
-        System.out.printf("Average Waiting Time: %.2f\n", averageWaitingTime);
+        System.out.printf("\nAverage Waiting Time: %.2f\n", averageWaitingTime);
         System.out.printf("Average Turnaround Time: %.2f\n", averageTurnaroundTime);
 
         // Print quantum history for each process
@@ -193,13 +171,13 @@ public class FCAIScheduler {
         // Example processes
         List<Process> processList = Arrays.asList(
                 // Example 1
-                /*new Process("P1", "Red", 0, 17, 4, 4),
+                new Process("P1", "Red", 0, 17, 4, 4),
                 new Process("P2", "Blue", 3, 6, 9, 3),
                 new Process("P3", "Green", 4, 10, 3, 5),
-                new Process("P4", "Green", 29, 4, 8, 2)*/
+                new Process("P4", "Green", 29, 4, 8, 2)
                 // Example 2
-                new Process("P1", "Red", 0, 12, 3, 5),
-                new Process("P2", "Blue", 2, 5, 9, 3)
+                /*new Process("P1", "Red", 0, 12, 3, 5),
+                new Process("P2", "Blue", 2, 5, 9, 3)*/
         );
 
         FCAIScheduler scheduler = new FCAIScheduler(processList, 2);
