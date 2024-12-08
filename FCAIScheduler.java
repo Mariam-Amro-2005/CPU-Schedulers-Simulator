@@ -78,6 +78,7 @@ public class FCAIScheduler {
                         // Let the current process run for the time difference
                         int additionalExecutionTime = Math.min(arrivalDiff, selectedProcess.getRemainingTime());
                         currentTime += additionalExecutionTime;
+                        executionTime += additionalExecutionTime;   // update total execution time
                         selectedProcess.setRemainingTime(selectedProcess.getRemainingTime() - additionalExecutionTime);
                     }
 
