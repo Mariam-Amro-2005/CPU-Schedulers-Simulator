@@ -130,8 +130,8 @@ public class FCAIScheduler {
                     p.getName(), p.getWaitingTime(), p.getTurnaroundTime());
         }
 
-        double averageWaitingTime = totalWaitingTime / processes.size();
-        double averageTurnaroundTime = totalTurnaroundTime / processes.size();
+        double averageWaitingTime =  Math.ceil(totalWaitingTime / processes.size());
+        double averageTurnaroundTime = Math.ceil(totalTurnaroundTime / processes.size());
 
         System.out.printf("\nAverage Waiting Time: %.2f\n", averageWaitingTime);
         System.out.printf("Average Turnaround Time: %.2f\n", averageTurnaroundTime);
