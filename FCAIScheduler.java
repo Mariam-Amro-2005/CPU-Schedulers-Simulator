@@ -47,14 +47,14 @@ public class FCAIScheduler {
             Process selectedProcess = readyQueue.getFirst();
 
             // Check if the process has remaining time
-            if (selectedProcess.getRemainingTime() <= 0) {
+            /*if (selectedProcess.getRemainingTime() <= 0) {
                 readyQueue.remove(selectedProcess);
                 selectedProcess.setCompletionTime(currentTime); // Set completion time
                 selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
                 selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
                 System.out.println("Process " + selectedProcess.getName() + " has completed and is removed from the queue.");
                 continue;
-            }
+            }*/
 
             // Add current quantum to quantum history
             quantumHistory.get(selectedProcess.getName()).add(selectedProcess.getQuantum());
@@ -87,7 +87,7 @@ public class FCAIScheduler {
 
                 if (!Objects.equals(potentialPreemptingProcess.getName(), selectedProcess.getName())) {
                     // Preempt the current process
-                    int arrivalDiff = potentialPreemptingProcess.getArrivalTime() - currentTime;
+                    int arrivalDiff = currentTime - potentialPreemptingProcess.getArrivalTime();
 
                     if (arrivalDiff > 0) {
                         // Let the current process run for the time difference
@@ -101,7 +101,11 @@ public class FCAIScheduler {
                     System.out.println("Switching ...");
                     if (selectedProcess.getRemainingTime() > 0) {
                         int unusedQuantum = selectedProcess.getQuantum() - executionTime;
-                        selectedProcess.adjustQuantum(unusedQuantum);
+                        if (unusedQuantum > 0){
+                            selectedProcess.adjustQuantum(unusedQuantum);
+                        }else{
+                            selectedProcess.adjustQuantum(2);
+                        }
                     }
 
                     // Context switch and let the new process run immediately
@@ -119,11 +123,19 @@ public class FCAIScheduler {
                 currentTime += remainingQuantum;
                 System.out.println("Time: after rest of quantum " + currentTime);
                 selectedProcess.adjustQuantum(2); // Add 2 to quantum if not finished
-            } else {
+            } /*else {
                 readyQueue.remove(selectedProcess); // Remove completed process
                 selectedProcess.setCompletionTime(currentTime); // Set completion time
                 selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
                 selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
+            }*/
+
+            if (selectedProcess.getRemainingTime() <= 0) {
+                readyQueue.remove(selectedProcess);
+                selectedProcess.setCompletionTime(currentTime); // Set completion time
+                selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
+                selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
+                System.out.println("Process " + selectedProcess.getName() + " has completed and is removed from the queue.");
             }
 
             executionOrder.add(selectedProcess.getName());
@@ -180,14 +192,17 @@ public class FCAIScheduler {
     public static void main(String[] args) {
         // Example processes
         List<Process> processList = Arrays.asList(
-                new Process("P1", "Red", 0, 17, 4, 4),
+                // Example 1
+                /*new Process("P1", "Red", 0, 17, 4, 4),
                 new Process("P2", "Blue", 3, 6, 9, 3),
                 new Process("P3", "Green", 4, 10, 3, 5),
-                new Process("P4", "Green", 29, 4, 8, 2)
+                new Process("P4", "Green", 29, 4, 8, 2)*/
+                // Example 2
+                new Process("P1", "Red", 0, 12, 3, 5),
+                new Process("P2", "Blue", 2, 5, 9, 3)
         );
 
         FCAIScheduler scheduler = new FCAIScheduler(processList, 2);
         scheduler.schedule();
     }
 }
-
