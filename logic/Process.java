@@ -1,3 +1,4 @@
+package logic;
 public class Process {
     // Attributes
     private String name;         // Process name (e.g., P1, P2, etc.)
@@ -11,7 +12,7 @@ public class Process {
     private int completionTime;  // Time the process completes execution
     private int waitingTime;     // Waiting time for the process
     private int turnaroundTime;  // Turnaround time for the process
-    public int CompletionTime;
+    
 
     // Constructor
     public Process(String name, String color, int arrivalTime, int burstTime, int priority, int quantum) {

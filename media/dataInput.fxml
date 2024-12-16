@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="847.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dataInputController">
+   <top>
+      <Label prefHeight="93.0" prefWidth="298.0" text="Program Input" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Cairo Regular" size="48.0" />
+         </font>
+      </Label>
+   </top>
+   <center>
+      <HBox alignment="CENTER" prefHeight="759.0" prefWidth="1280.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="759.0" prefWidth="1002.0" spacing="10.0">
+               <children>
+                  <HBox prefHeight="40.0" prefWidth="696.0" />
+                  <HBox prefHeight="50.0" prefWidth="696.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="467.0" text="context switching:">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="CS_TF" prefHeight="48.0" prefWidth="542.0">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="93.0" prefWidth="663.0" spacing="10.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="59.0" prefWidth="139.0" text="Process Data:">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="595.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="562.0" text="Name:" textAlignment="RIGHT">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="PN_TF" prefHeight="48.0" prefWidth="630.0">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="48.0" prefWidth="663.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="302.0" text="Arrival Time:">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="AT_TF" prefHeight="48.0" prefWidth="366.0">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="49.0" prefWidth="663.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="489.0" text="Burst Time:">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="BT_TF" prefHeight="48.0" prefWidth="552.0">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="663.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="468.0" text="Priority Number:">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="PPN_TF" prefHeight="48.0" prefWidth="529.0">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="38.0" prefWidth="663.0">
+                     <children>
+                        <Label prefHeight="47.0" prefWidth="468.0" text="Quantum:">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="PQ_tf" prefHeight="48.0" prefWidth="529.0">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <VBox alignment="CENTER" prefHeight="118.0" prefWidth="663.0">
+                     <children>
+                        <Button fx:id="addP_btn" alignment="CENTER" mnemonicParsing="false" onAction="#add_process" prefHeight="48.0" prefWidth="118.0" text="Add Process" textAlignment="CENTER">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="759.0" prefWidth="903.0" spacing="5.0">
+               <children>
+                  <TableView fx:id="H_table" prefHeight="482.0" prefWidth="467.0">
+                     <columns>
+                        <TableColumn fx:id="name_col" editable="false" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="AT_col" editable="false" prefWidth="75.0" text="AT" />
+                        <TableColumn fx:id="BT_col" prefWidth="75.0" text="BT" />
+                        <TableColumn fx:id="PN_col" prefWidth="75.0" text="PN" />
+                        <TableColumn fx:id="PQ_col" prefWidth="75.0" text="Quantum" />
+                     </columns>
+                  </TableView>
+                  <RadioButton fx:id="PS_R" mnemonicParsing="false" text="Priority Scheduling using context switching">
+                     <font>
+                        <Font name="Cairo Regular" size="18.0" />
+                     </font>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="secdular" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="SJF_R" mnemonicParsing="false" text="Shortest- Job First" toggleGroup="$secdular">
+                     <font>
+                        <Font name="Cairo Regular" size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="SRTF_R" mnemonicParsing="false" text="Shortest- Remaining Time First" toggleGroup="$secdular">
+                     <font>
+                        <Font name="Cairo Regular" size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="FCAI_R" mnemonicParsing="false" text="FCAI Scheduling" toggleGroup="$secdular">
+                     <font>
+                        <Font name="Cairo Regular" size="18.0" />
+                     </font>
+                  </RadioButton>
+                  <VBox alignment="CENTER" prefHeight="66.0" prefWidth="450.0">
+                     <children>
+                        <Button fx:id="simulate_btn" alignment="CENTER" mnemonicParsing="false" onAction="#Simulate" prefHeight="48.0" prefWidth="118.0" text="Simulate" textAlignment="CENTER">
+                           <font>
+                              <Font name="Cairo Regular" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="5.0" />
+   </padding>
+</BorderPane>

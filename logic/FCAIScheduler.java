@@ -1,26 +1,48 @@
+package logic;
+
 import java.util.*;
 
 public class FCAIScheduler {
+
     private List<Process> processes; // All processes
     private List<Process> readyQueue; // Dynamically updated ready queue
     private int contextSwitchingTime;
     private int currentTime = 0;
     private Map<String, List<Integer>> quantumHistory; // Tracks quantum history for each process
+    static double totalWaitingTime = 0;
+    static double totalTurnaroundTime = 0;
+    private Map<String, List<Integer>> executionHistory;
+
+    public List<Process> getProcesses() {
+        return processes;
+    }
+
+    public static double getTotalWaitTime() {
+        return totalWaitingTime;
+    }
+
+    public static double getTotalTurnaroundTime() {
+        return totalTurnaroundTime;
+    }
+
+    public Map<String, List<Integer>> getExecutionHistory() {
+        return executionHistory;
+    }
 
     public FCAIScheduler(List<Process> processes, int contextSwitchingTime) {
         this.processes = new ArrayList<>(processes);
         this.readyQueue = new ArrayList<>();
         this.contextSwitchingTime = contextSwitchingTime;
         this.quantumHistory = new HashMap<>();
+        this.executionHistory = new HashMap<>();
         for (Process p : processes) {
             quantumHistory.put(p.getName(), new ArrayList<>());
+            executionHistory.put(p.getName(), new ArrayList<>());
         }
     }
 
     public void schedule() {
         List<String> executionOrder = new ArrayList<>();
-        double totalWaitingTime = 0;
-        double totalTurnaroundTime = 0;
 
         while (!allProcessesCompleted()) {
             // Add new processes to the ready queue
@@ -45,6 +67,9 @@ public class FCAIScheduler {
 
             // Select the process with the lowest FCAI factor
             Process selectedProcess = readyQueue.getFirst();
+
+            // start time of each process from here->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+            executionHistory.get(selectedProcess.getName()).add(currentTime);
 
             // Add current quantum to quantum history
             quantumHistory.get(selectedProcess.getName()).add(selectedProcess.getQuantum());
@@ -78,16 +103,19 @@ public class FCAIScheduler {
                         // Let the current process run for the time difference
                         int additionalExecutionTime = Math.min(arrivalDiff, selectedProcess.getRemainingTime());
                         currentTime += additionalExecutionTime;
-                        executionTime += additionalExecutionTime;   // update total execution time
+                        executionTime += additionalExecutionTime; // update total execution time
                         selectedProcess.setRemainingTime(selectedProcess.getRemainingTime() - additionalExecutionTime);
                     }
 
+                    // here is the end time->>>>>>>>>>>>>>>>>>>>>>>>>>>
+                    executionHistory.get(selectedProcess.getName()).add(currentTime);
+                    
                     // Update variables after execution
                     if (selectedProcess.getRemainingTime() > 0) {
                         int unusedQuantum = selectedProcess.getQuantum() - executionTime;
-                        if (unusedQuantum > 0){
+                        if (unusedQuantum > 0) {
                             selectedProcess.adjustQuantum(unusedQuantum);
-                        }else{
+                        } else {
                             selectedProcess.adjustQuantum(2);
                         }
                     }
@@ -102,22 +130,27 @@ public class FCAIScheduler {
             // If the process finishes or continues, adjust quantum and move on
             if (selectedProcess.getRemainingTime() > 0) {
                 // Continue running for rest of quantum
-                int remainingQuantum = Math.min((selectedProcess.getQuantum() - executionTime), selectedProcess.getRemainingTime());
+                int remainingQuantum = Math.min((selectedProcess.getQuantum() - executionTime),
+                        selectedProcess.getRemainingTime());
                 selectedProcess.setRemainingTime(selectedProcess.getRemainingTime() - remainingQuantum);
                 currentTime += remainingQuantum;
                 selectedProcess.adjustQuantum(2); // Add 2 to quantum if not finished
             }
 
             if (selectedProcess.getRemainingTime() <= 0) {
-                readyQueue.remove(selectedProcess);  // Remove completed process
+                readyQueue.remove(selectedProcess); // Remove completed process
                 selectedProcess.setCompletionTime(currentTime); // Set completion time
                 selectedProcess.setTurnaroundTime(currentTime - selectedProcess.getArrivalTime());
                 selectedProcess.setWaitingTime(selectedProcess.getTurnaroundTime() - selectedProcess.getBurstTime());
-                // System.out.println("Process " + selectedProcess.getName() + " has completed and is removed from the queue.");
+                // System.out.println("Process " + selectedProcess.getName() + " has completed
+                // and is removed from the queue.");
             }
 
+            // here is the end time->>>>>>>>>>>>>>>>>>>>>>>>>>>
+            executionHistory.get(selectedProcess.getName()).add(currentTime);
             executionOrder.add(selectedProcess.getName());
             currentTime += contextSwitchingTime; // Add context switching time
+
         }
 
         System.out.println("\nExecution Order: " + String.join(" -> ", executionOrder + "\n"));
@@ -131,7 +164,7 @@ public class FCAIScheduler {
                     p.getName(), p.getWaitingTime(), p.getTurnaroundTime());
         }
 
-        double averageWaitingTime =  Math.ceil(totalWaitingTime / processes.size());
+        double averageWaitingTime = Math.ceil(totalWaitingTime / processes.size());
         double averageTurnaroundTime = Math.ceil(totalTurnaroundTime / processes.size());
 
         System.out.printf("\nAverage Waiting Time: %.2f\n", averageWaitingTime);
@@ -176,12 +209,16 @@ public class FCAIScheduler {
                 new Process("P2", "Blue", 3, 6, 9, 3),
                 new Process("P3", "Green", 4, 10, 3, 5),
                 new Process("P4", "Green", 29, 4, 8, 2)
-                // Example 2
-                /*new Process("P1", "Red", 0, 12, 3, 5),
-                new Process("P2", "Blue", 2, 5, 9, 3)*/
+        // Example 2
+        /*
+         * new Process("P1", "Red", 0, 12, 3, 5),
+         * new Process("P2", "Blue", 2, 5, 9, 3)
+         */
         );
 
         FCAIScheduler scheduler = new FCAIScheduler(processList, 2);
+
         scheduler.schedule();
     }
+
 }

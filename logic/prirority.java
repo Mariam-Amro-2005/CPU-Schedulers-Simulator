@@ -1,3 +1,4 @@
+package logic;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -6,6 +7,32 @@ public class prirority {
     static List<Process> processList = new ArrayList<>();
     static List<String> executionOrder = new ArrayList<>(); // To store the execution order
     static int contextSwitchingTime;
+    static int totalWaitTime = 0;
+    static int totalTurnaroundTime = 0;
+
+    public static int getContextSwitchingTime() {
+        return contextSwitchingTime;
+    }
+
+    public static void setContextSwitchingTime(int contextSwitchingTime) {
+        prirority.contextSwitchingTime = contextSwitchingTime;
+    }
+
+    public static List<Process> getProcessList() {
+        return processList;
+    }
+
+    public static void setProcessList(List<Process> list) {
+        processList = list;
+    }
+
+    public static int getTotalWaitTime() {
+        return totalWaitTime;
+    }
+
+    public static int getTotalTurnaroundTime() {
+        return totalTurnaroundTime;
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -41,11 +68,11 @@ public class prirority {
 
         sc.close();
     }
-    static void simulatePirority(){
+    
+    public static void simulatePirority(){
         int currentTime = 0;
         int completed = 0;
-        int totalWaitTime=0;
-        int totalTurnaroundTime=0;
+        
         while(completed<processList.size()){
             Process highestprio=null;
             for(Process p:processList){
@@ -78,7 +105,12 @@ public class prirority {
         }
         printResults(totalWaitTime, totalTurnaroundTime);
     }
-    static void printResults(int totalWaitTime, int totalTurnaroundTime) {
+    
+    public static List<String> getExecutionOrder() {
+        return executionOrder;
+    }
+
+    public static void printResults(int totalWaitTime, int totalTurnaroundTime) {
         System.out.println("\nProcess Execution Order:");
         for (String pName : executionOrder) {
             System.out.print(pName + " ");

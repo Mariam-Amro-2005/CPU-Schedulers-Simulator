@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="PP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.simulateController">
+   <opaqueInsets>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </opaqueInsets>
+   <right>
+      <TableView fx:id="H_table" prefHeight="519.0" prefWidth="602.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="name_col" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="AT_col" prefWidth="75.0" text="AT" />
+            <TableColumn fx:id="BT_col" prefWidth="75.0" text="BT" />
+            <TableColumn fx:id="PN_col" prefWidth="75.0" text="PN" />
+            <TableColumn fx:id="PQ_col" prefWidth="75.0" text="Quantum" />
+            <TableColumn fx:id="WT_col" prefWidth="75.0" text="WT" />
+            <TableColumn fx:id="TAT_col" prefWidth="75.0" text="TAT" />
+        </columns>
+      </TableView>
+   </right>
+   <bottom>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="1280.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="322.0" text="Average Waiting Time: ">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="avg_wt_tf" disable="true" prefHeight="63.0" prefWidth="162.0">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label prefHeight="18.0" prefWidth="322.0" text="Average Turnaround Time: ">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="avg_tt_tf" disable="true" prefHeight="63.0" prefWidth="164.0">
+                           <font>
+                              <Font name="Cairo Regular" size="24.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </bottom>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</BorderPane>

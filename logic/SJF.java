@@ -1,16 +1,32 @@
+package logic;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-
 public class SJF {
-
     static List<Process> processList = new ArrayList<>();
     static List<String> executionOrder = new ArrayList<>(); // To store the execution order
     static int contextSwitchingTime;
     static int totalWaitTime = 0;
     static int totalTurnaroundTime = 0;
+
+    public static int getTotalWaitTime() {
+        return totalWaitTime;
+    }
+
+    public static int getTotalTurnaroundTime() {
+        return totalTurnaroundTime;
+    }
+
+    public static List<Process> getProcessList() {
+        return processList;
+    }
+
+    public static void setProcessList(List<Process> list) {
+        processList = list;
+    }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -18,16 +34,13 @@ public class SJF {
         System.out.print("Enter the number of processes: ");
         int numProcesses = sc.nextInt();
 
-        System.out.print("Enter the context switching time: ");
-        contextSwitchingTime = sc.nextInt();
-
         for (int i = 0; i < numProcesses; i++) {
             System.out.println("Enter details for Process " + (i + 1) + ":");
             System.out.print("Process Name: ");
             String name = sc.next();
 
-            System.out.print("Process Color: ");
-            String color = sc.next();
+            // System.out.print("Process Color: ");
+            String color = "*";
 
             System.out.print("Arrival Time: ");
             int arrivalTime = sc.nextInt();
@@ -105,10 +118,11 @@ public class SJF {
                     + ", Turnaround Time: " + p.getTurnaroundTime());
         }
 
-        double avgWaitTime = (double) totalWaitTime / processList.size();
-        double avgTurnaroundTime = (double) totalTurnaroundTime / processList.size();
-
-        System.out.println("\nAverage Waiting Time: " + avgWaitTime);
-        System.out.println("Average Turnaround Time: " + avgTurnaroundTime);
+        double avgWaitTime = ((double) totalWaitTime / processList.size());
+        double avgTurnaroundTime = ((double) totalTurnaroundTime / processList.size());
+        
+        System.out.println("\nAverage Waiting Time: " + Math.ceil(avgWaitTime));
+        System.out.println("Average Turnaround Time: " + Math.ceil(avgTurnaroundTime));
     }
+
 }
