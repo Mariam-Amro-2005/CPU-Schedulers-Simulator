@@ -11,20 +11,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="PP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.simulateController">
+<BorderPane fx:id="PP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/datainput.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.simulateController">
    <opaqueInsets>
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
    </opaqueInsets>
    <right>
-      <TableView fx:id="H_table" prefHeight="519.0" prefWidth="602.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="H_table" prefHeight="519.0" prefWidth="602.0" style="-fx-background-color: balak; -fx-border-color: white;" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="name_col" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="AT_col" prefWidth="75.0" text="AT" />
             <TableColumn fx:id="BT_col" prefWidth="75.0" text="BT" />
             <TableColumn fx:id="PN_col" prefWidth="75.0" text="PN" />
-            <TableColumn fx:id="PQ_col" prefWidth="75.0" text="Quantum" />
-            <TableColumn fx:id="WT_col" prefWidth="75.0" text="WT" />
-            <TableColumn fx:id="TAT_col" prefWidth="75.0" text="TAT" />
+            <TableColumn fx:id="PQ_col" prefWidth="126.39990234375" text="Quantum" />
+            <TableColumn fx:id="WT_col" prefWidth="59.9998779296875" text="WT" />
+            <TableColumn fx:id="TAT_col" prefWidth="112.79999389648435" text="TAT" />
         </columns>
       </TableView>
    </right>

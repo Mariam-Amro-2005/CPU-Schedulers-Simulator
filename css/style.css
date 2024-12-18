@@ -1,0 +1,36 @@
+.root {
+    -fx-background-color: black;
+}
+
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-family: "Cairo Regular";
+    -fx-font-size: 24px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+
+.button:hover,.button:pressed,.button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.5, 0, 0);
+    -fx-text-fill: lightgray;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: "Cairo Regular";
+    -fx-font-size: 36px;
+    -fx-alignment: center;
+}
+
+
+.label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.5, 0, 0);
+    -fx-text-fill: lightgray;
+    -fx-cursor: hand; 
+}

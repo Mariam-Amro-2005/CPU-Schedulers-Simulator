@@ -1,0 +1,95 @@
+.root {
+    -fx-background-color: black;
+}
+
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: "Cairo Regular";
+    -fx-font-size: 24px;
+}
+
+
+.label[styleClass~="title"] {
+    -fx-font-size: 48px;
+}
+
+
+.label:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.5, 0, 0);
+    -fx-text-fill: lightgray;
+    -fx-cursor: hand;
+}
+
+
+.button {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-family: "Cairo Regular";
+    -fx-font-size: 18px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.button:hover,.button:pressed,.button:focused {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.75), 10, 0.5, 0, 0);
+    -fx-text-fill: lightgray;
+}
+
+.button
+
+.text-field {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-font-family: "Cairo Regular";
+    -fx-font-size: 18px;
+    -fx-prompt-text-fill: rgb(255, 252, 252);
+}
+
+
+.radio-button {
+    -fx-text-fill: white;
+    -fx-font-family: "Cairo Regular";
+    -fx-font-size: 18px;
+}
+
+
+.radio-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.5), 5, 0.5, 0, 0);
+}
+
+
+
+.table-view .column-header {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-family: "Cairo Regular";
+    -fx-font-size: 2px;
+    
+}
+
+
+.table-view .cell {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-font-family: "Cairo Regular";
+    -fx-border-color: white;
+    -fx-font-size: 18px;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20px !important; 
+}
+
+
+.table-view .cell {
+    -fx-font-size: 18px !important; 
+}

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="847.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dataInputController">
+<BorderPane fx:id="datainput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../css/datainput.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dataInputController">
    <top>
       <Label prefHeight="93.0" prefWidth="298.0" text="Program Input" BorderPane.alignment="CENTER">
          <font>
@@ -50,28 +50,28 @@
                         </Label>
                      </children>
                   </VBox>
-                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="595.0">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="710.0">
                      <children>
                         <Label prefHeight="47.0" prefWidth="562.0" text="Name:" textAlignment="RIGHT">
                            <font>
                               <Font name="Cairo Regular" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="PN_TF" prefHeight="48.0" prefWidth="630.0">
+                        <TextField fx:id="PN_TF" prefHeight="48.0" prefWidth="622.0">
                            <font>
                               <Font name="Cairo Regular" size="18.0" />
                            </font>
                         </TextField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="48.0" prefWidth="663.0">
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="710.0">
                      <children>
-                        <Label prefHeight="47.0" prefWidth="302.0" text="Arrival Time:">
+                        <Label prefHeight="47.0" prefWidth="562.0" text="Arrival Time:" textAlignment="RIGHT">
                            <font>
                               <Font name="Cairo Regular" size="24.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="AT_TF" prefHeight="48.0" prefWidth="366.0">
+                        <TextField fx:id="AT_TF" prefHeight="48.0" prefWidth="622.0">
                            <font>
                               <Font name="Cairo Regular" size="18.0" />
                            </font>
@@ -122,7 +122,7 @@
                   </HBox>
                   <VBox alignment="CENTER" prefHeight="118.0" prefWidth="663.0">
                      <children>
-                        <Button fx:id="addP_btn" alignment="CENTER" mnemonicParsing="false" onAction="#add_process" prefHeight="48.0" prefWidth="118.0" text="Add Process" textAlignment="CENTER">
+                        <Button fx:id="addP_btn" alignment="CENTER" mnemonicParsing="false" onAction="#add_process" prefHeight="59.0" prefWidth="141.0" text="Add Process" textAlignment="CENTER">
                            <font>
                               <Font name="Cairo Regular" size="18.0" />
                            </font>
@@ -133,13 +133,13 @@
             </VBox>
             <VBox prefHeight="759.0" prefWidth="903.0" spacing="5.0">
                <children>
-                  <TableView fx:id="H_table" prefHeight="482.0" prefWidth="467.0">
+                  <TableView fx:id="H_table" prefHeight="482.0" prefWidth="467.0" style="-fx-background-color: black; -fx-border-color: white;">
                      <columns>
-                        <TableColumn fx:id="name_col" editable="false" prefWidth="75.0" text="Name" />
-                        <TableColumn fx:id="AT_col" editable="false" prefWidth="75.0" text="AT" />
-                        <TableColumn fx:id="BT_col" prefWidth="75.0" text="BT" />
-                        <TableColumn fx:id="PN_col" prefWidth="75.0" text="PN" />
-                        <TableColumn fx:id="PQ_col" prefWidth="75.0" text="Quantum" />
+                        <TableColumn fx:id="name_col" editable="false" prefWidth="105.60003519058228" text="Name" />
+                        <TableColumn fx:id="AT_col" editable="false" prefWidth="79.20001983642578" text="AT" />
+                        <TableColumn fx:id="BT_col" prefWidth="72.0" text="BT" />
+                        <TableColumn fx:id="PN_col" prefWidth="72.0" text="PN" />
+                        <TableColumn fx:id="PQ_col" prefWidth="228.00004272460933" text="Quantum" />
                      </columns>
                   </TableView>
                   <RadioButton fx:id="PS_R" mnemonicParsing="false" text="Priority Scheduling using context switching">
