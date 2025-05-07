@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 public class SJF {
     static List<Process> processList = new ArrayList<>();
     static List<String> executionOrder = new ArrayList<>(); // To store the execution order
-    static int contextSwitchingTime;
     static int totalWaitTime = 0;
     static int totalTurnaroundTime = 0;
 
